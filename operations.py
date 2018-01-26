@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib.image import imread
 import matplotlib.cm as cm
 import numpy as np
+from scipy import ndimage
 
 class analyze_file:
 
@@ -184,7 +185,7 @@ def rotate(image_path,**kwargs):
     """
 
     image   =   analyze_file(image_path)
-    angle   =   90
+    angle   =   -90
     save    =   False
     preview =   False
 
@@ -192,8 +193,10 @@ def rotate(image_path,**kwargs):
     if 'save' in kwargs:    save = kwargs['save']
     if 'preview' in kwargs: preview = kwargs['preview']
 
-    rad     =   np.deg2rad(angle)
-    dataT[:,:]
+    dataT   =   ndimage.interpolation.rotate(image.data,angle)
+
+    if save:    if_save(image,dataT,'rotated')
+    if preview: if_preview(image,dataT,'rotated')
 
 def preview_color_breakdown(image_path,**kwargs):
     """
